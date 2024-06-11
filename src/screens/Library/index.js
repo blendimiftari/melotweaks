@@ -1,68 +1,75 @@
-import React, { useState, useEffect } from "react"
-import axios from "axios"
-import { IconContext } from "react-icons"
-import { AiFillPlayCircle } from "react-icons/ai"
-import "./library.css"
-import { useNavigate } from "react-router-dom"
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { IconContext } from "react-icons";
+import { AiFillPlayCircle } from "react-icons/ai";
+import "./library.css";
+import AlbumDetail from "./album_detail";
 
-const options = {
-  method: "GET",
-  url: "https://spotify23.p.rapidapi.com/playlist/",
+const albumOptions = {
+  method: 'GET',
+  url: 'https://spotify23.p.rapidapi.com/albums/',
   params: {
-    id: "37i9dQZF1DX4Wsb4d7NKfP",
+    ids: '3IBcauSj5M2A6lTeffJzdv' // You can add more album IDs as needed
   },
   headers: {
-    "x-rapidapi-key": "27f75102c9msh9fb3ca70d0fb30dp1ffa97jsnb100c6ccaae7",
-    "x-rapidapi-host": "spotify23.p.rapidapi.com",
-  },
-}
+    'x-rapidapi-key': 'c0af16912emsh522d7f660a0967ap1fc9a2jsnfe8b231a91cc',
+    'x-rapidapi-host': 'spotify23.p.rapidapi.com'
+  }
+};
 
 export default function Library() {
-  const [playlists, setPlaylists] = useState(null)
+  const [albums, setAlbums] = useState([]);
+  const [selectedAlbum, setSelectedAlbum] = useState(null);
 
   useEffect(() => {
-    async function fetchData() {
+    async function fetchAlbums() {
       try {
-        const response = await axios.request(options)
-        console.log("API response:", response.data)
-        setPlaylists([response.data]) // Wrap the response in an array if it returns a single playlist
+        const response = await axios.request(albumOptions);
+        setAlbums(response.data.albums); // Assuming the response contains an array of albums
+        
       } catch (error) {
-        console.error(error)
+        console.error(error);
       }
     }
-    fetchData()
-  }, [])
+    fetchAlbums();
+  }, []);
 
-  const navigate = useNavigate()
+  const selectAlbum = (album) => {
+    setSelectedAlbum(album);
+  };
 
-  const playPlaylist = id => {
-    navigate("/player", { state: { id: id } })
-  }
+  const goBack = () => {
+    setSelectedAlbum(null);
+  };
 
   return (
     <div className="screen-container">
-      <div className="library-body">
-        {playlists?.map((playlist, index) => (
-          <div
-            className="playlist-card"
-            key={playlist.id || index} // Ensure unique key prop
-            onClick={() => playPlaylist(playlist.id)}
-          >
-            <img
-              src={playlist.images[0].url}
-              className="playlist-image"
-              alt="Playlist-Art"
-            />
-            <p className="playlist-title">{playlist.name}</p>
-            <p className="playlist-subtitle">{playlist.tracks.total} Songs</p>
-            <div className="playlist-fade">
-              <IconContext.Provider value={{ size: "50px", color: "#E99D72" }}>
-                <AiFillPlayCircle />
-              </IconContext.Provider>
+      {selectedAlbum ? (
+        <AlbumDetail album={selectedAlbum} onBack={goBack} />
+      ) : (
+        <div className="library-body">
+          {albums.map((album) => (
+            <div
+              className="playlist-card"
+              key={album.id}
+              onClick={() => selectAlbum(album)}
+            >
+              <img
+                src={album.images[0].url}
+                className="playlist-image"
+                alt="Album-Art"
+              />
+              <p className="playlist-title">{album.name}</p>
+              <p className="playlist-subtitle">{album.tracks.totalCount} Songs</p>
+              <div className="playlist-fade">
+                <IconContext.Provider value={{ size: "50px", color: "#E99D72" }}>
+                  <AiFillPlayCircle />
+                </IconContext.Provider>
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
-  )
+  );
 }
