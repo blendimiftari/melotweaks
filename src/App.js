@@ -1,10 +1,13 @@
 
-function App() {
-  return (
-    <div className="App">
-      Teesstt
-    </div>
-  );
-}
+import React from "react"
+import Home from "./screens/Home/index"
 
-export default App;
+
+export default function App() {
+  return (
+
+    <div>
+      <Home />
+    </div>
+  )
+}
