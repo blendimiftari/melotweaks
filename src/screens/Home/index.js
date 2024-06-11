@@ -8,6 +8,7 @@ import Favorites from "../Favorites/Favorites"
 import Sidebar from "../../components/sidebar"
 
 import "./home.css"
+import Track from "../Track/track"
 
 export default function Home() {
   return (
@@ -20,6 +21,8 @@ export default function Home() {
           <Route path="/trending" element={<Trending />} />
           <Route path="/player" element={<Player />} />
           <Route path="/favorites" element={<Favorites />} />
+          <Route path="/track" element={<Track />} />
+
         </Routes>
       </div>
     </Router>

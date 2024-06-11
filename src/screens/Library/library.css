@@ -79,3 +79,58 @@
   padding: 8%;
   transition: 0.5s ease;
 }
+
+
+.album-detail-container {
+  padding: 20px;
+}
+
+.back-button {
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  background-color: #E99D72;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.album-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.album-image {
+  width: 150px;
+  height: 150px;
+  margin-right: 20px;
+}
+
+.album-text h2 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.album-text p {
+  margin: 5px 0 0;
+}
+
+.tracks-list {
+  display: flex;
+  flex-direction: column;
+  height: 70vh;
+  overflow-y: scroll;
+  width: 100%;
+}
+
+.track-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.track-name {
+  margin: 0;
+}

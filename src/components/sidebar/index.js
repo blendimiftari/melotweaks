@@ -15,8 +15,8 @@ export default function Sidebar() {
         className="profile-img"
       ></img>
       <div>
-        <SidebarButton title="Feed" to="/feed" icon={<MdSpaceDashboard />} />
-        <SidebarButton title="Trending" to="/trending" icon={<FaGripfire />} />
+        <SidebarButton title="Albums" to="/" icon={<MdSpaceDashboard />} />
+        <SidebarButton title="Tracks" to="/track" icon={<FaGripfire />} />
         <SidebarButton title="Player" to="/player" icon={<FaPlay />} />
         <SidebarButton
           title="Favorites"
